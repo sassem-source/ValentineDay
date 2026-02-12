@@ -126,6 +126,26 @@
             opacity: 1;
         }
 
+        .confetti-heart {
+            position: fixed;
+            top: -10vh;
+            font-size: 20px;
+            animation: confetti-fall linear forwards;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -195,6 +215,10 @@
         if (isMoving) return; // 🚫 блокуємо повтори
         isMoving = true;
 
+        if (navigator.vibrate) {
+            navigator.vibrate(15);
+        }
+
         attempts++;
 
         if (attempts === 5) {
@@ -250,6 +274,7 @@
     yesBtn.addEventListener('click', () => {
         firstScreen.classList.add('hidden');
         secondScreen.classList.remove('hidden');
+        startHeartConfetti();
     });
 
     // hearts animation
@@ -264,6 +289,26 @@
 
         setTimeout(() => heart.remove(), 6000);
     }, 300);
+
+    function startHeartConfetti() {
+        const interval = setInterval(() => {
+            const heart = document.createElement('div');
+            heart.className = 'confetti-heart';
+            heart.textContent = '❤️';
+
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = Math.random() * 20 + 16 + 'px';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 5000);
+        }, 200);
+
+        // зупинити через 4 секунди
+        setTimeout(() => clearInterval(interval), 4000);
+    }
+
 </script>
 
 </body>
