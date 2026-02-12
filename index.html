@@ -282,7 +282,7 @@
         const heart = document.createElement('div');
         heart.className = 'heart';
         heart.innerHTML = '❤️';
-        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.left = Math.random() * (document.documentElement.clientWidth - 30) + 'px';
         heart.style.fontSize = Math.random() * 20 + 15 + 'px';
         heart.style.animationDuration = Math.random() * 3 + 4 + 's';
         document.body.appendChild(heart);
@@ -296,7 +296,7 @@
             heart.className = 'confetti-heart';
             heart.textContent = '❤️';
 
-            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.left = Math.random() * (document.documentElement.clientWidth - 30) + 'px';
             heart.style.fontSize = Math.random() * 20 + 16 + 'px';
             heart.style.animationDuration = Math.random() * 2 + 3 + 's';
 
