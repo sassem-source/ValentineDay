@@ -80,12 +80,17 @@
             background: #ff1e38;
             transform: translateX(-110%) scale(1.08);
         }
+        #yesBtn.full {
+            left: unset;
+            transform: unset;
+            width: 100%;
+            transition: width 0.4s ease-in-out;
+        }
 
         .hidden {
             display: none;
         }
 
-        /* Second screen */
         .love-screen img {
             width: 100%;
             max-width: 280px;
@@ -152,7 +157,6 @@
             100% { transform: scale(1); }
         }
 
-        /* Hearts */
         .heart {
             position: absolute;
             color: rgba(255,255,255,0.8);
@@ -209,10 +213,10 @@
     let attempts = 0;
     let isMoving = false;
 
-    const pushDistance = 100;
+    const pushDistance = 150;
 
     function repel(e) {
-        if (isMoving) return; // 🚫 блокуємо повтори
+        if (isMoving) return;
         isMoving = true;
 
         if (navigator.vibrate) {
@@ -229,6 +233,7 @@
         }
         if (attempts === 7) {
             noBtn.classList.add('hide');
+            yesBtn.classList.add('full');
         }
 
         const btnRect = noBtn.getBoundingClientRect();
@@ -261,13 +266,11 @@
 
         noBtn.style.transform = `translate(${offsetY}px, ${offsetX}px)`;
 
-        // ⏱ дозволяємо наступну спробу після анімації
         setTimeout(() => {
             isMoving = false;
         }, 200);
     }
 
-    // ⚠️ КЛЮЧОВА ЗМІНА
     noBtn.addEventListener('mouseenter', repel);
     noBtn.addEventListener('touchstart', repel);
 
@@ -277,7 +280,6 @@
         startHeartConfetti();
     });
 
-    // hearts animation
     setInterval(() => {
         const heart = document.createElement('div');
         heart.className = 'heart';
@@ -305,7 +307,6 @@
             setTimeout(() => heart.remove(), 5000);
         }, 200);
 
-        // зупинити через 4 секунди
         setTimeout(() => clearInterval(interval), 4000);
     }
 
